@@ -6,12 +6,13 @@ router.route('/book')
 .post(createBook)
 .get(getBook)
 
-router.route('/book/:title')
+router.route('/book/:id')
 .get(getBook)
 .delete(deleteBook)
-
-router.route('/book/:id')
 .put(updateBook)
+
+
+
 
 
 

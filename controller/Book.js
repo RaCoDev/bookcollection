@@ -1,32 +1,29 @@
-const BookSchema=require('../models/BookModel')
+const BookSchema=require('../models/BookModel');
+const asyncHandler =require('../middleware/asynchandler');
 
 //create a book
 // method POST
-exports.createBook=async (req,res,next)=>{
+exports.createBook=asyncHandler(async (req,res,next)=>{
+        const book=await BookSchema.create(req.body);
+        res.status(200).json({msg:book})
 
-   const book=await BookSchema.create(req.body);
 
-    
-    console.log(req.body)
+})
 
+
+exports.getBook=asyncHandler(async (req,res,next)=>{
+    const book =await BookSchema.findById(req.params.id)
     res.status(200).json({msg:book})
+  
 
-}
-
-
-exports.getBook=async (req,res,next)=>{
-    const book =await BookSchema.aggregate([{$match:{title:new RegExp(req.params.title)}}])
-
-    res.status(200).json({msg:book})
-
-}
-exports.deleteBook=async (req,res,next)=>{
+})
+exports.deleteBook=asyncHandler(async (req,res,next)=>{
     const book =await BookSchema.deleteOne({title:req.params.title})
 
     res.status(200).json({msg:"deleted"})
 
-}
-exports.updateBook=async (req,res,next)=>{
+})
+exports.updateBook=asyncHandler(async (req,res,next)=>{
     const book =await BookSchema.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
         runValidators:true
@@ -34,4 +31,4 @@ exports.updateBook=async (req,res,next)=>{
 
     res.status(200).json({msg:book})
 
-}
+})

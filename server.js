@@ -1,7 +1,8 @@
 const express=require('express')
 const dotenv=require('dotenv');
 const book=require('./routes/book')
-const connectDB=require('./config/db')
+const connectDB=require('./config/db');
+const errorHandler = require('./middleware/errrohandler');
 
 dotenv.config({path:'./config/config.env'})
 
@@ -18,6 +19,7 @@ app.use(dataReader);
 app.use(express.json())
 
 app.use('/api/v1',book)
+app.use(errorHandler)
 
 
 const PORT=process.env.PORT || 3000
