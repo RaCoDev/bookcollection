@@ -7,9 +7,9 @@ const BookSchema = new Schema({
     unique: true,
     trim: true,
     maxlength: [50, "Not more than 50 character"],
+    lowercase:true
   },
-  author: { type: String },
-  require: true,
+  author: { type: String, lowercase:true },
   price: { type: Number },
   slug: { type: String },
 });
